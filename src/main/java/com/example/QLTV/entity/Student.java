@@ -1,9 +1,12 @@
 package com.example.QLTV.entity;
+import com.example.QLTV.entity.e_num.StudentStatus;
 import com.example.QLTV.entity.e_num.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +21,7 @@ public class Student extends BaseEntity {
     @Id
     @UuidGenerator
     @Column(name = "id", columnDefinition = "CHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
     UUID id;
 
     @Column(unique = true, nullable = false)
@@ -26,8 +30,11 @@ public class Student extends BaseEntity {
     String faculty;
     String clazz;
 
+
     @Enumerated(EnumType.STRING)
-    UserStatus status;
+    private StudentStatus studentStatus = StudentStatus.ACTIVE;
+
+    private  Double debt = 0.0;
 
     @Column(name = "fine_balance")
     Double fineBalance = 0.0;
@@ -44,4 +51,5 @@ public class Student extends BaseEntity {
 
     @OneToMany(mappedBy = "student")
     List<Review> reviews;
+
 }

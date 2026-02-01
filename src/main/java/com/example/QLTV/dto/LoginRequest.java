@@ -9,6 +9,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginRequest {
-     String username; // admin
+     String username;
      String password;
 }

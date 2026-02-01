@@ -30,7 +30,7 @@ public class AuthorizationService {
                 .orElseThrow(() ->
                         new ApiException(ErrorCode.USER_NO_ROLE));
 
-        Role role = roleRepo.findById(userRole.getRoleId())
+        Role role = roleRepo.findById(userRole.getRole().getId())
                 .orElseThrow(() ->
                         new ApiException(ErrorCode.ROLE_NOT_FOUND));
 

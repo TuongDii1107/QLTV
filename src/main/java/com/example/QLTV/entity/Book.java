@@ -1,43 +1,58 @@
 package com.example.QLTV.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "book")
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Book extends BaseEntity {
+
     @Id
     @UuidGenerator
-    @Column(name = "id", columnDefinition = "CHAR(36)")
+    @Column(columnDefinition = "CHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
     UUID id;
 
     String title;
     String author;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     String isbn;
 
     String category;
+    String description;
     String publisher;
 
-    @Column(name = "published_year")
     String publishedYear;
-
     Double price;
+
+    @Column(name = "shelf_code")
     String shelfCode;
 
-    @OneToMany(mappedBy = "book")
-    List<BookCopy> copies;
+    @OneToMany(
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<BookCopy> copies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "book")
-    List<Review> reviews;
+    // helper
+    public void addCopy(BookCopy copy) {
+        copies.add(copy);
+        copy.setBook(this);
+    }
+
 }

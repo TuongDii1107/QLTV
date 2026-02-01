@@ -1,93 +1,61 @@
-USE qltv;
-DESCRIBE `user`;
-/* ================= USER ================= */
-ALTER TABLE `user`
-    ADD COLUMN username VARCHAR(255) UNIQUE;
-INSERT INTO `user` (id, username, password, email, status)
-VALUES ('u1', 'admin', '123456', 'admin@qltv.edu.vn', 'ACTIVE'),
-       ('u2', 'librarian', '123456', 'librarian@qltv.edu.vn', 'ACTIVE'),
-       ('u3', 'sv001', '123456', 'sv001@student.edu.vn', 'ACTIVE'),
-       ('u4', 'sv002', '123456', 'sv002@student.edu.vn', 'ACTIVE');
-
-/* ================= ROLE ================= */
-INSERT INTO role (id, name)
-VALUES ('r1', 'ADMIN'),
-       ('r2', 'LIBRARIAN'),
-       ('r3', 'STUDENT');
-
-/* ================= USER_ROLE ================= */
+INSERT INTO user (id, username, password, email, status)
+VALUES ('550e8400-e29b-41d4-a716-446655440000', 'admin', '123456', 'admin@qltv.edu.vn', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440001', 'librarian', '123456', 'librarian@qltv.edu.vn', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440002', 'sv001', '123456', 'sv001@student.edu.vn', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440003', 'sv002', '123456', 'sv002@student.edu.vn', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440004', 'sv003', '123456', 'sv003@student.edu.vn', 'ACTIVE');
+INSERT INTO role (id, name, description)
+VALUES ('660e8400-e29b-41d4-a716-446655440000', 'ADMIN', 'Quản trị'),
+       ('660e8400-e29b-41d4-a716-446655440001', 'LIBRARIAN', 'Thủ thư'),
+       ('660e8400-e29b-41d4-a716-446655440002', 'STUDENT', 'Sinh viên');
 INSERT INTO user_role (user_id, role_id)
-VALUES ('u1', 'r1'),
-       ('u2', 'r2'),
-       ('u3', 'r3'),
-       ('u4', 'r3');
-
-/* ================= STAFF ================= */
+VALUES ('550e8400-e29b-41d4-a716-446655440000', '660e8400-e29b-41d4-a716-446655440000'),
+       ('550e8400-e29b-41d4-a716-446655440001', '660e8400-e29b-41d4-a716-446655440001'),
+       ('550e8400-e29b-41d4-a716-446655440002', '660e8400-e29b-41d4-a716-446655440002'),
+       ('550e8400-e29b-41d4-a716-446655440003', '660e8400-e29b-41d4-a716-446655440002'),
+       ('550e8400-e29b-41d4-a716-446655440004', '660e8400-e29b-41d4-a716-446655440002');
 INSERT INTO staff (id, staff_code, status, user_id)
-VALUES ('st1', 'TT001', 'ACTIVE', 'u2');
-
-/* ================= STUDENT ================= */
+VALUES ('770e8400-e29b-41d4-a716-446655440000', 'TT001', 'ACTIVE', '550e8400-e29b-41d4-a716-446655440001');
 INSERT INTO student (id, student_code, faculty, clazz, status, fine_balance, user_id)
-VALUES ('sv1', 'SV001', 'Công nghệ thông tin', 'K26CNTT01', 'ACTIVE', 0, 'u3'),
-       ('sv2', 'SV002', 'Quản trị kinh doanh', 'K26QTKD01', 'ACTIVE', 20000, 'u4');
-
-/* ================= BOOK ================= */
+VALUES ('880e8400-e29b-41d4-a716-446655440000', 'SV001', 'CNTT', 'K26CNTT01', 'ACTIVE', 0,
+        '550e8400-e29b-41d4-a716-446655440002'),
+       ('880e8400-e29b-41d4-a716-446655440001', 'SV002', 'QTKD', 'K26QTKD01', 'ACTIVE', 20000,
+        '550e8400-e29b-41d4-a716-446655440003'),
+       ('880e8400-e29b-41d4-a716-446655440002', 'SV003', 'KT', 'K26KT01', 'ACTIVE', 0,
+        '550e8400-e29b-41d4-a716-446655440004');
 INSERT INTO book (id, title, author, isbn, category, publisher, published_year, price, shelf_code)
-VALUES ('b1', 'Lập Trình Java Cơ Bản', 'Nguyễn Văn A', '978604000001', 'CNTT', 'NXB Giáo Dục', '2022', 95000, 'IT-A1'),
-       ('b2', 'Cơ Sở Dữ Liệu', 'Trần Văn B', '978604000002', 'CNTT', 'NXB Khoa Học', '2021', 120000, 'IT-A2'),
-       ('b3', 'Kỹ Năng Giao Tiếp', 'Lê Thị C', '978604000003', 'Kỹ năng mềm', 'NXB Trẻ', '2020', 80000, 'SK-B1');
-
-/* ================= BOOK_COPY ================= */
+VALUES ('990e8400-e29b-41d4-a716-446655440000', 'Lập Trình Java', 'Nguyễn Văn A', '978604000001', 'CNTT', 'NXB GD',
+        '2022', 95000, 'IT-A1'),
+       ('990e8400-e29b-41d4-a716-446655440001', 'Cơ Sở Dữ Liệu', 'Trần Văn B', '978604000002', 'CNTT', 'NXB KH', '2021',
+        120000, 'IT-A2'),
+       ('990e8400-e29b-41d4-a716-446655440002', 'Spring Boot', 'Phạm Văn D', '978604000004', 'CNTT', 'NXB GD', '2023',
+        150000, 'IT-A3'),
+       ('990e8400-e29b-41d4-a716-446655440003', 'Kỹ Năng Giao Tiếp', 'Lê Thị C', '978604000003', 'Kỹ năng', 'NXB Trẻ',
+        '2020', 80000, 'SK-B1');
 INSERT INTO book_copy (id, barcode, circulation_status, condition_status, book_id)
-VALUES ('bc1', 'BC-JAVA-001', 'AVAILABLE', 'NEW', 'b1'),
-       ('bc2', 'BC-JAVA-002', 'AVAILABLE', 'GOOD', 'b1'),
-       ('bc3', 'BC-DB-001', 'BORROWED', 'GOOD', 'b2'),
-       ('bc4', 'BC-SK-001', 'AVAILABLE', 'NEW', 'b3');
+VALUES ('a10e8400-e29b-41d4-a716-446655440000', 'BC-JAVA-001', 'AVAILABLE', 'NORMAL',
+        '990e8400-e29b-41d4-a716-446655440000'),
+       ('a10e8400-e29b-41d4-a716-446655440001', 'BC-JAVA-002', 'BORROWED', 'DAMAGED_LIGHT',
+        '990e8400-e29b-41d4-a716-446655440000'),
+       ('a10e8400-e29b-41d4-a716-446655440002', 'BC-JAVA-003', 'RESERVED', 'NORMAL',
+        '990e8400-e29b-41d4-a716-446655440000'),
 
-/* ================= LOAN ================= */
+       ('a10e8400-e29b-41d4-a716-446655440003', 'BC-DB-001', 'AVAILABLE', 'NORMAL',
+        '990e8400-e29b-41d4-a716-446655440001'),
+       ('a10e8400-e29b-41d4-a716-446655440004', 'BC-DB-002', 'DAMAGED', 'DAMAGED_MEDIUM',
+        '990e8400-e29b-41d4-a716-446655440001'),
+
+       ('a10e8400-e29b-41d4-a716-446655440005', 'BC-SPR-001', 'AVAILABLE', 'NORMAL',
+        '990e8400-e29b-41d4-a716-446655440002'),
+       ('a10e8400-e29b-41d4-a716-446655440006', 'BC-SPR-002', 'LOST', 'LOST', '990e8400-e29b-41d4-a716-446655440002'),
+
+       ('a10e8400-e29b-41d4-a716-446655440007', 'BC-SK-001', 'AVAILABLE', 'NORMAL',
+        '990e8400-e29b-41d4-a716-446655440003');
 INSERT INTO loan (id, borrowed_at, due_date, status, student_id, book_copy_id)
-VALUES ('l1', '2025-12-20 09:00:00', '2025-12-27 23:59:59', 'BORROWING', 'sv1', 'bc3');
-
-/* ================= RETURN_TRANSACTION ================= */
+VALUES ('b20e8400-e29b-41d4-a716-446655440000', '2025-12-20 09:00:00', '2025-12-27 23:59:59', 'BORROWING',
+        '880e8400-e29b-41d4-a716-446655440000', 'a10e8400-e29b-41d4-a716-446655440001');
 INSERT INTO return_transaction (id, return_at, book_condition, note, loan_id, staff_id)
-VALUES ('rt1', '2025-12-26 10:30:00', 'GOOD', 'Trả sách đúng hạn', 'l1', 'st1');
-
-/* ================= FINE ================= */
-INSERT INTO fine (id, student_id, loan_id, fine_type, amount, status)
-VALUES ('f1', 'sv2', NULL, 'LATE_RETURN', 20000, 'UNPAID');
-
-/* ================= FINE_PAYMENT ================= */
-INSERT INTO fine_payment (id, amount, payment_method, paid_at, fine_id)
-VALUES ('fp1', 20000, 'CASH', '2025-12-26 14:00:00', 'f1');
-
-/* ================= RESERVATION ================= */
-INSERT INTO reservation (id, reserved_at, expired_at, status, student_id, book_copy_id)
-VALUES ('rs1', '2025-12-26 08:00:00', '2025-12-27 08:00:00', 'ACTIVE', 'sv2', 'bc2');
-
-/* ================= REVIEW ================= */
-INSERT INTO review (id, rating, comment, student_id, book_id)
-VALUES ('rv1', 5, 'Sách dễ hiểu, phù hợp người mới học', 'sv1', 'b1');
-
-/* ================= NOTIFICATION ================= */
-INSERT INTO notification (id, title, content, type, is_read, user_id)
-VALUES ('n1', 'Nhắc trả sách', 'Bạn còn 1 ngày để trả sách Cơ Sở Dữ Liệu', 'REMINDER', 0, 'u3');
-
-/* ================= INCIDENT ================= */
-INSERT INTO incident (id, title, description, priority, status)
-VALUES ('i1', 'Sách hư hỏng', 'Phát hiện sách bị rách trang', 'HIGH', 'OPEN');
-
-SELECT COUNT(*) FROM user;
-SELECT COUNT(*) FROM role;
-SELECT COUNT(*) FROM user_role;
-SELECT COUNT(*) FROM staff;
-SELECT COUNT(*) FROM student;
-SELECT COUNT(*) FROM book;
-SELECT COUNT(*) FROM book_copy;
-SELECT COUNT(*) FROM loan;
-SELECT COUNT(*) FROM return_transaction;
-SELECT COUNT(*) FROM fine;
-SELECT COUNT(*) FROM fine_payment;
-SELECT COUNT(*) FROM reservation;
-SELECT COUNT(*) FROM review;
-SELECT COUNT(*) FROM notification;
-SELECT COUNT(*) FROM incident;
+VALUES ('c30e8400-e29b-41d4-a716-446655440000', '2025-12-26 10:30:00',
+        'DAMAGED_LIGHT', 'Trả sách có trầy xước',
+        'b20e8400-e29b-41d4-a716-446655440000',
+        '770e8400-e29b-41d4-a716-446655440000');

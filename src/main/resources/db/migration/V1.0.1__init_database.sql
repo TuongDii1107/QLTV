@@ -1,6 +1,3 @@
-CREATE DATABASE QLTV;
-USE QLTV;
-
 CREATE TABLE book
 (
     id             CHAR(36)     NOT NULL,
@@ -11,8 +8,9 @@ CREATE TABLE book
     is_deleted     BIT(1)       NULL,
     title          VARCHAR(255) NULL,
     author         VARCHAR(255) NULL,
-    isbn           VARCHAR(255) NULL,
+    isbn           VARCHAR(255) NOT NULL,
     category       VARCHAR(255) NULL,
+    `description`  VARCHAR(255) NULL,
     publisher      VARCHAR(255) NULL,
     published_year VARCHAR(255) NULL,
     price          DOUBLE       NULL,
@@ -31,7 +29,7 @@ CREATE TABLE book_copy
     barcode            VARCHAR(255) NULL,
     circulation_status VARCHAR(255) NULL,
     condition_status   VARCHAR(255) NULL,
-    book_id            CHAR(36)     NOT NULL,
+    book_id            CHAR(36)     NULL,
     CONSTRAINT pk_book_copy PRIMARY KEY (id)
 );
 
@@ -163,8 +161,9 @@ CREATE TABLE review
 
 CREATE TABLE `role`
 (
-    id   CHAR(36)     NOT NULL,
-    name VARCHAR(255) NOT NULL,
+    id            CHAR(36)     NOT NULL,
+    name          VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NULL,
     CONSTRAINT pk_role PRIMARY KEY (id)
 );
 
@@ -216,10 +215,12 @@ CREATE TABLE user
 
 CREATE TABLE user_role
 (
-    user_id CHAR(36) NOT NULL,
-    role_id CHAR(36) NOT NULL,
-    CONSTRAINT pk_user_role PRIMARY KEY (user_id, role_id)
+    user_id CHAR(36) NULL,
+    role_id CHAR(36) NULL
 );
+
+ALTER TABLE user_role
+    ADD CONSTRAINT FK_USERROLE_ON_ROLE FOREIGN KEY (role_id) REFERENCES `role` (id);
 
 ALTER TABLE book_copy
     ADD CONSTRAINT uc_book_copy_barcode UNIQUE (barcode);
@@ -295,6 +296,9 @@ ALTER TABLE staff
 
 ALTER TABLE student
     ADD CONSTRAINT FK_STUDENT_ON_USER FOREIGN KEY (user_id) REFERENCES user (id);
+
+ALTER TABLE user_role
+    ADD CONSTRAINT FK_USER_ROLE_ON_ROLE FOREIGN KEY (role_id) REFERENCES `role` (id);
 
 ALTER TABLE user_role
     ADD CONSTRAINT FK_USER_ROLE_ON_USER FOREIGN KEY (user_id) REFERENCES user (id);

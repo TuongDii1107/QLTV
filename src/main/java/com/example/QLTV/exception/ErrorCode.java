@@ -9,7 +9,10 @@ public enum ErrorCode {
     USER_NO_ROLE("USER_NO_ROLE", "Người dùng chưa được gán vai trò"),
     ROLE_NOT_FOUND("ROLE_NOT_FOUND", "Vai trò không tồn tại"),
     ACCOUNT_LOCKED("ACCOUNT_LOCKED", "Tài khoản đã bị khóa"),
-    FORBIDDEN("FORBIDDEN", "Bạn không có quyền truy cập");
+    FORBIDDEN("FORBIDDEN", "Bạn không có quyền truy cập"),
+    BOOK_NOT_FOUND("BOOK_NOT_FOUND", "Không tìm thấy sách"),
+    BOOK_COPY_NOT_FOUND("BOOK_COPY_NOT_FOUND", "Không tìm thấy bản in"),
+    NOT_ENOUGH_AVAILABLE_COPIES("NOT_ENOUGH_AVAILABLE_COPIES", "Không đủ sách AVAILABLE để loại bỏ");
 
     private final String code;
     private final String message;

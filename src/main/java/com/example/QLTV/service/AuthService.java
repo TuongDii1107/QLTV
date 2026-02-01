@@ -41,7 +41,7 @@ public class AuthService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("User chưa được gán role"));
 
-        Role role = roleRepo.findById(userRole.getRoleId())
+        Role role = roleRepo.findById(userRole.getId().getRoleId())
                 .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
 
         return new LoginResponse(
